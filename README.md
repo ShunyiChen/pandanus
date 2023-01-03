@@ -27,6 +27,16 @@ docker run --name keycloak \
 问题：keycloak HTTPS required
 解决：第1步.update REALM set ssl_required='NONE' where id = 'master';
      第2步.容器重启
+
+//创建postgresDB
+docker run --name keycloak-db \
+    -v /usr/shunyi/keycloak/postgresql-persistence:/bitnami/postgresql \
+    -e POSTGRESQL_DATABASE=bitnami_keycloak \
+    -e POSTGRESQL_USERNAME=bitnami_keycloak \
+    -e POSTGRESQL_PASSWORD=bitnami_keycloak \
+    -d -p 5432:5432 bitnami/postgresql:latest
+//解决办法
+https://stackoverflow.com/questions/63924161/postgresql-container-not-starting-chmod-changing-permissions-of-bitnami-post
 ```
 
 ### Linux
@@ -47,8 +57,4 @@ https://github.com/amrutprabhu/keycloak-spring-cloud-gateway-and-resource-server
 https://datmt.com/backend/integrate-keycloak-with-spring-boot-step-by-step/#Quick_Keycloak_setup_with_docker_compose
 https://blog.logrocket.com/implement-keycloak-authentication-react/
 https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
-
-
-
-
 ```
