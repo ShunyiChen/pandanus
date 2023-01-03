@@ -46,4 +46,9 @@ https://refactorfirst.com/spring-cloud-gateway-keycloak-oauth2-openid-connect
 https://github.com/amrutprabhu/keycloak-spring-cloud-gateway-and-resource-server/blob/main/keycloak-config/My-Realm-realm.json
 https://datmt.com/backend/integrate-keycloak-with-spring-boot-step-by-step/#Quick_Keycloak_setup_with_docker_compose
 https://blog.logrocket.com/implement-keycloak-authentication-react/
+https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
+
+
+
+
 ```
