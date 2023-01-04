@@ -1,3 +1,4 @@
 rootProject.name = 'pandanus'
 include 'auth'
+include 'jcr'
 
