@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: jcr-api
+  cloud:
+      consul:
+        host: localhost
+        port: 8500
+        discovery:
+          service-name: ${spring.application.name}
+          prefer-ip-address: true
+          heartbeat:
+            enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://101.43.164.174:8888/auth/realms/spring-boot-quickstart/protocol/openid-connect/certs
+server:
+  port: 9091
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

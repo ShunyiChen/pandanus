@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: confsvr
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+        prefer-ip-address: true
+        heartbeat:
+          enabled: true
+# Enable these to debug the Authorization flow
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web: INFO
+server:
+  port: 9093
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

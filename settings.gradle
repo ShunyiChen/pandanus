@@ -1,4 +1,6 @@
 rootProject.name = 'pandanus'
-include 'auth'
-include 'jcr'
+include 'api-gateway'
+include 'confsvr'
+include 'jcr-api'
+include 'site-api'
 
