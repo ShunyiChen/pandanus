@@ -21,31 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jcr.config;
+package com.shunyi.cloud.pandanus.gateway;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.jwt.Jwt;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * RealmRole converter
+ * APIGateway application
  *
  * @author Shunyi Chen
  */
-public class RealmRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
-    @Override
-    public Collection<GrantedAuthority> convert(Jwt jwt) {
-        final Map<String, List<String>> realmAccess = (Map<String, List<String>>) jwt.getClaims().get("realm_access");
-        return realmAccess.get("roles")
-                .stream()
-                .map(roleName -> "ROLE_" + roleName) // prefix required by Spring Security for roles.
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
+@EnableDiscoveryClient
+@SpringBootApplication(exclude = ReactiveUserDetailsServiceAutoConfiguration.class)
+public class APIGatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(APIGatewayApplication.class, args);
+	}
 }

@@ -43,6 +43,10 @@ https://stackoverflow.com/questions/63924161/postgresql-container-not-starting-c
 //创建consul
 docker network create consul-network --driver bridge
 docker run --name consul-node1 --network consul-network -v J:\spmia2\docker\consul-persistence:/bitnami -d -p 8500:8500 bitnami/consul:latest
+
+//退出登陆endpoint:
+http://101.43.164.174:8888/auth/realms/spring-boot-quickstart/protocol/openid-connect/logout?redirect_uri=http://localhost:9090/
+
 ```
 
 ### Linux

@@ -21,23 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.shunyi.cloud.pandanus.auth;
+package com.shunyi.cloud.pandanus.jcr;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * APIGateway application
+ * JCR application
  *
  * @author Shunyi Chen
  */
+@Slf4j
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = ReactiveUserDetailsServiceAutoConfiguration.class)
-public class APIGatewayApplication {
+@SpringBootApplication
+public class JcrApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(APIGatewayApplication.class, args);
+		String logs = "Pandanus started";
+		log.info("This is for logging test:{}", logs);
+		SpringApplication.run(JcrApplication.class, args);
 	}
+
 }

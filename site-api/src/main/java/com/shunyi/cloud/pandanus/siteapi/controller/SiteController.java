@@ -47,7 +47,7 @@ public class SiteController {
 
     @GetMapping("/message")
     public String message(Principal principal) {
-        return "secret message "+principal.getName();
+        return "MESSAGE: "+principal.getName();
     }
 
     @PostMapping("/message")

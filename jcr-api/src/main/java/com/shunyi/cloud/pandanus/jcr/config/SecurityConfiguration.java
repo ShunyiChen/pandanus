@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jcr.config;
+package com.shunyi.cloud.pandanus.jcr.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,8 +51,9 @@ public class SecurityConfiguration {
         http
                 .authorizeExchange((authorize) -> authorize
                         .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                        .pathMatchers(HttpMethod.GET, "/message/**").hasAnyAuthority("ROLE_message_read")
-                        .pathMatchers(HttpMethod.POST, "/message/**").hasAuthority("ROLE_message:write")
+                        .pathMatchers(HttpMethod.GET, "/jcr/**").hasAnyAuthority("ROLE_message_read")
+                        .pathMatchers(HttpMethod.POST, "/jcr/**").hasAnyAuthority("ROLE_message_read")
+//                        .pathMatchers(HttpMethod.POST, "/jcr/**").hasAuthority("ROLE_message:write")
                         .anyExchange()
                         .authenticated()
                 )

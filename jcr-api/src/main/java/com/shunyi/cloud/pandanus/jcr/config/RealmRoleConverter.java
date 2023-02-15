@@ -21,27 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package jcr;
+package com.shunyi.cloud.pandanus.jcr.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
- * JCR application
+ * RealmRole converter
  *
  * @author Shunyi Chen
  */
-@Slf4j
-@EnableDiscoveryClient
-@SpringBootApplication
-public class JcrApplication {
-
-	public static void main(String[] args) {
-		String testInfo = "Pandanus startup";
-		log.info("The test info is :{}", testInfo);
-		SpringApplication.run(JcrApplication.class, args);
-	}
-
+public class RealmRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+    @Override
+    public Collection<GrantedAuthority> convert(Jwt jwt) {
+        final Map<String, List<String>> realmAccess = (Map<String, List<String>>) jwt.getClaims().get("realm_access");
+        return realmAccess.get("roles")
+                .stream()
+                .map(roleName -> "ROLE_" + roleName) // prefix required by Spring Security for roles.
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
 }
