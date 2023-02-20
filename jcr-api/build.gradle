@@ -33,14 +33,17 @@ repositories {
 
 ext {
     set('springCloudVersion', "2022.0.0")
+    set('oakVersion', '1.44.0')
 }
 
 dependencies {
     //The JCR API
     implementation 'javax.jcr:jcr:2.0'
     //Jackrabbit content repository
-    implementation 'org.apache.jackrabbit:oak-jcr:1.0.0'
-//    implementation 'org.apache.jackrabbit:jackrabbit-core:2.21.14'
+    implementation "org.apache.jackrabbit:oak-jcr:${oakVersion}"
+    implementation "org.apache.jackrabbit:oak-store-document:${oakVersion}"
+    //MongoDB java driver
+    implementation 'org.mongodb:mongo-java-driver:3.12.12'
     //Use Log4J for logging
     implementation 'org.slf4j:slf4j-log4j12:2.0.6'
     implementation 'com.squareup.okhttp3:mockwebserver'

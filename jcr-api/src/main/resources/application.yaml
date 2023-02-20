@@ -18,6 +18,10 @@ spring:
 server:
   port: 9091
 management:
+  metrics:
+    mongo:
+      connectionpool:
+        enabled: false  # To disable the auto-configured connection pool metrics
   endpoints:
     web:
       exposure:
