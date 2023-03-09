@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                 .authorizeExchange((authorize) -> authorize
                         .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                         .pathMatchers(HttpMethod.GET, "/message/**").hasAnyAuthority("ROLE_message_read")
+                        .pathMatchers(HttpMethod.POST, "/message/**").hasAnyAuthority("ROLE_message_read")
                         .pathMatchers(HttpMethod.POST, "/message/**").hasAuthority("ROLE_message:write")
                         .anyExchange()
                         .authenticated()

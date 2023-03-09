@@ -1,15 +1,6 @@
 spring:
   application:
     name: jcr-api
-  cloud:
-      consul:
-        host: localhost
-        port: 8500
-        discovery:
-          service-name: ${spring.application.name}
-          prefer-ip-address: true
-          heartbeat:
-            enabled: true
   security:
     oauth2:
       resourceserver:
@@ -17,7 +8,20 @@ spring:
           jwk-set-uri: http://101.43.164.174:8888/auth/realms/spring-boot-quickstart/protocol/openid-connect/certs
 server:
   port: 9091
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
 management:
+  metrics:
+    mongo:
+      connectionpool:
+        enabled: false  # To disable the auto-configured connection pool metrics
   endpoints:
     web:
       exposure:

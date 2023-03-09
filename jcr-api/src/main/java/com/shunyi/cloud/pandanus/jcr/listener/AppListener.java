@@ -21,34 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.shunyi.cloud.pandanus.siteapi.controller;
+package com.shunyi.cloud.pandanus.jcr.listener;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
+import com.shunyi.cloud.pandanus.jcr.config.JackRabbitRepositoryBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
- * Site controller
+ * Application startup and shutdown listener
  *
  * @author Shunyi Chen
  */
-@RestController
-public class SiteController {
+@Slf4j
+@Component
+public class AppListener implements CommandLineRunner, DisposableBean {
 
-    @GetMapping("/")
-    public String index(@AuthenticationPrincipal Jwt jwt) {
-        return String.format("Hello, %s!", jwt.getSubject());
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("应用启动成功，预加载相关数据");
     }
 
-    @GetMapping("/message")
-    public String message(Principal principal, @RequestParam String name) {
-        return "name: "+name+" and MESSAGE: "+principal.getName();
-    }
-
-    @PostMapping("/message")
-    public String createMessage(@RequestBody String message) {
-        return String.format("Message was created. Content: %s", message);
+    @Override
+    public void destroy() throws Exception {
+        log.info("应用正在关闭，清理相关数据");
+        JackRabbitRepositoryBuilder.dispose();
     }
 }

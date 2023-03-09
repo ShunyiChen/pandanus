@@ -21,34 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.shunyi.cloud.pandanus.siteapi.controller;
+package com.shunyi.cloud.pandanus.jcr.model;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Site controller
+ * FileResponse model
  *
  * @author Shunyi Chen
  */
-@RestController
-public class SiteController {
-
-    @GetMapping("/")
-    public String index(@AuthenticationPrincipal Jwt jwt) {
-        return String.format("Hello, %s!", jwt.getSubject());
-    }
-
-    @GetMapping("/message")
-    public String message(Principal principal, @RequestParam String name) {
-        return "name: "+name+" and MESSAGE: "+principal.getName();
-    }
-
-    @PostMapping("/message")
-    public String createMessage(@RequestBody String message) {
-        return String.format("Message was created. Content: %s", message);
-    }
+@Data
+@NoArgsConstructor
+public class FileResponse {
+    private byte[] bytes;
+    private String contentType;
 }
