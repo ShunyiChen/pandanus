@@ -7,4 +7,6 @@ include 'api-gateway'
 include 'confsvr'
 include 'common'
 include 'base'
+include 'eurekaserver'
+include 'confserver'
 

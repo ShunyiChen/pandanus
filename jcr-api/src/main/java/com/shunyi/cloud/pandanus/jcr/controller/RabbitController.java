@@ -49,103 +49,109 @@ import java.util.List;
 @RequestMapping("/jcr")
 public class RabbitController {
 
-//    @GetMapping("/viewRepository")
-//    public String viewRepository(Principal principal) {
-//        System.out.println("*****View repository");
-//        return String.format("View repository");
-//    }
-//
-//    @PostMapping("/createRepository")
-//    public String createRepository(Principal principal) {
-//        System.out.println("*************Repository was created by "+principal.getName());
-//        return String.format("Repository was created.");
-//    }
-
-
     private Repository repo = null;
 
     public RabbitController(JackRabbitService jackRabbitService) {
         this.jackRabbitService = jackRabbitService;
-        repo = JackRabbitRepositoryBuilder.getRepo("localhost", 27017);
+//        JcrUtils.getr
+        repo = JackRabbitRepositoryBuilder.getRepository();
     }
 
     @Autowired
     JackRabbitService jackRabbitService;
 
-    @PostMapping("/createRoot")
-    public String createRoot() throws RepositoryException {
-        Session session = JackRabbitUtils.getSession(repo);
-        System.out.println("createRoot called!");
-        RabbitNode input = new RabbitNode("/", "oak", "", "");
-        Node node = jackRabbitService.createFolderNode(session, input);
-        String identifier = node.getIdentifier();
-        JackRabbitUtils.cleanUp(session);
-        return identifier;
+//    @PostMapping("/cd")
+//    public void cd() throws RepositoryException {
+//
+//    }
+
+//    @PostMapping("/createRoot")
+//    public String createRoot() throws RepositoryException {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        System.out.println("createRoot called!");
+//        RabbitNode input = new RabbitNode("/", "oak", "", "");
+//        Node node = jackRabbitService.createFolderNode(session, input);
+//        String identifier = node.getIdentifier();
+//        JackRabbitUtils.cleanUp(session);
+//        return identifier;
+//    }
+//
+//    @PostMapping("/createFolder")
+//    public String createFolderNode(@RequestBody RabbitNode input) throws RepositoryException {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        System.out.println("createFolderNode called!");
+//        System.out.println("parentId: " + input.getParentId());
+//        System.out.println("filePath: " + input.getFileName());
+//        System.out.println("mimeType: " + input.getMimeType());
+//        System.out.println("fileId: " + input.getFileId());
+//        Node node = jackRabbitService.createFolderNode(session, input);
+//        String identifier = node.getIdentifier();
+//        JackRabbitUtils.cleanUp(session);
+//        return identifier;
+//    }
+//
+//    @PostMapping("/createFile")
+//    public String createNode(@RequestParam(value = "parent") String parent, @RequestParam(value = "file") MultipartFile file) throws RepositoryException {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        RabbitNode input = new RabbitNode(parent, file.getOriginalFilename(), URLConnection.guessContentTypeFromName(file.getName()), "");
+//        System.out.println("createNode called!");
+//        System.out.println("parentId: " + input.getParentId());
+//        System.out.println("filePath: " + input.getFileName());
+//        System.out.println("mimeType: " + input.getMimeType());
+//        System.out.println("fileId: " + input.getFileId());
+//        Node node = jackRabbitService.createNode(session, input, file);
+//        String identifier = node.getIdentifier();
+//        session.getNodeByIdentifier(input.getParentId());
+//        return identifier;
+//    }
+//
+//    @PostMapping("/deleteFile")
+//    public boolean deleteNode(@RequestBody RabbitNode input) {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        System.out.println("deleteNode called!");
+//        System.out.println("parentId: " + input.getParentId());
+//        System.out.println("filePath: " + input.getFileName());
+//        System.out.println("mimeType: " + input.getMimeType());
+//        System.out.println("fileId: " + input.getFileId());
+//        boolean result = jackRabbitService.deleteNode(session, input);
+//        JackRabbitUtils.cleanUp(session);
+//        return result;
+//    }
+//
+//    @PostMapping("/getVersions")
+//    public List<String> getVersionHistory(@RequestBody RabbitNode input) {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        System.out.println("getVersionHistory called!");
+//        System.out.println("parentId: " + input.getParentId());
+//        System.out.println("filePath: " + input.getFileName());
+//        System.out.println("mimeType: " + input.getMimeType());
+//        System.out.println("fileId: " + input.getFileId());
+//        return jackRabbitService.getVersionHistory(session, input);
+//    }
+//
+//    @PostMapping("/getFile/{versionId}")
+//    public FileResponse getNode(@PathVariable String versionId, @RequestBody RabbitNode input) {
+//        Session session = JackRabbitUtils.getSession(repo);
+//        FileResponse response = null;
+//        System.out.println("getNode called!");
+//        System.out.println("parentId: " + input.getParentId());
+//        System.out.println("filePath: " + input.getFileName());
+//        System.out.println("mimeType: " + input.getMimeType());
+//        System.out.println("fileId: " + input.getFileId());
+//        response = jackRabbitService.getNode(session, versionId, input);
+//        return response;
+//    }
+
+
+    @GetMapping("/viewRepository")
+    public String viewRepository(Principal principal) {
+        System.out.println("*****View repository");
+        return String.format("View repository");
     }
 
-    @PostMapping("/createFolder")
-    public String createFolderNode(@RequestBody RabbitNode input) throws RepositoryException {
-        Session session = JackRabbitUtils.getSession(repo);
-        System.out.println("createFolderNode called!");
-        System.out.println("parentId: " + input.getParentId());
-        System.out.println("filePath: " + input.getFileName());
-        System.out.println("mimeType: " + input.getMimeType());
-        System.out.println("fileId: " + input.getFileId());
-        Node node = jackRabbitService.createFolderNode(session, input);
-        String identifier = node.getIdentifier();
-        JackRabbitUtils.cleanUp(session);
-        return identifier;
-    }
-
-    @PostMapping("/createFile")
-    public String createNode(@RequestParam(value = "parent") String parent, @RequestParam(value = "file") MultipartFile file) throws RepositoryException {
-        Session session = JackRabbitUtils.getSession(repo);
-        RabbitNode input = new RabbitNode(parent, file.getOriginalFilename(), URLConnection.guessContentTypeFromName(file.getName()), "");
-        System.out.println("createNode called!");
-        System.out.println("parentId: " + input.getParentId());
-        System.out.println("filePath: " + input.getFileName());
-        System.out.println("mimeType: " + input.getMimeType());
-        System.out.println("fileId: " + input.getFileId());
-        Node node = jackRabbitService.createNode(session, input, file);
-        String identifier = node.getIdentifier();
-        session.getNodeByIdentifier(input.getParentId());
-        return identifier;
-    }
-
-    @PostMapping("/deleteFile")
-    public boolean deleteNode(@RequestBody RabbitNode input) {
-        Session session = JackRabbitUtils.getSession(repo);
-        System.out.println("deleteNode called!");
-        System.out.println("parentId: " + input.getParentId());
-        System.out.println("filePath: " + input.getFileName());
-        System.out.println("mimeType: " + input.getMimeType());
-        System.out.println("fileId: " + input.getFileId());
-        boolean result = jackRabbitService.deleteNode(session, input);
-        JackRabbitUtils.cleanUp(session);
-        return result;
-    }
-
-    @PostMapping("/getVersions")
-    public List<String> getVersionHistory(@RequestBody RabbitNode input) {
-        Session session = JackRabbitUtils.getSession(repo);
-        System.out.println("getVersionHistory called!");
-        System.out.println("parentId: " + input.getParentId());
-        System.out.println("filePath: " + input.getFileName());
-        System.out.println("mimeType: " + input.getMimeType());
-        System.out.println("fileId: " + input.getFileId());
-        return jackRabbitService.getVersionHistory(session, input);
-    }
-
-    @PostMapping("/getFile/{versionId}")
-    public FileResponse getNode(@PathVariable String versionId, @RequestBody RabbitNode input) {
-        Session session = JackRabbitUtils.getSession(repo);
-        FileResponse response = null;
-        System.out.println("getNode called!");
-        System.out.println("parentId: " + input.getParentId());
-        System.out.println("filePath: " + input.getFileName());
-        System.out.println("mimeType: " + input.getMimeType());
-        System.out.println("fileId: " + input.getFileId());
-        response = jackRabbitService.getNode(session, versionId, input);
-        return response;
+    @PostMapping("/createRepository")
+    public String createRepository(Principal principal) {
+        System.out.println("*************Repository was created by "+principal.getName());
+        return String.format("Repository was created.");
     }
 }

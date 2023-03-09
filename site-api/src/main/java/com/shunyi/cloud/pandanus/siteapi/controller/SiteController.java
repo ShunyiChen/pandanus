@@ -25,10 +25,7 @@ package com.shunyi.cloud.pandanus.siteapi.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -46,8 +43,8 @@ public class SiteController {
     }
 
     @GetMapping("/message")
-    public String message(Principal principal) {
-        return "MESSAGE: "+principal.getName();
+    public String message(Principal principal, @RequestParam String name) {
+        return "name: "+name+" and MESSAGE: "+principal.getName();
     }
 
     @PostMapping("/message")

@@ -21,45 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.shunyi.cloud.pandanus.jcr.config;
+package com.shunyi.cloud.pandanus.jcr.listener;
 
+import com.shunyi.cloud.pandanus.jcr.config.JackRabbitRepositoryBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.jackrabbit.oak.Oak;
-import org.apache.jackrabbit.oak.jcr.Jcr;
-import org.apache.jackrabbit.oak.plugins.document.DocumentNodeStore;
-import org.apache.jackrabbit.oak.plugins.document.mongo.MongoDocumentNodeStoreBuilder;
-import org.springframework.context.annotation.Configuration;
-
-import javax.jcr.Repository;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
- * JackRabbit Repository Builder
+ * Application startup and shutdown listener
  *
  * @author Shunyi Chen
  */
 @Slf4j
-@Configuration
-public class JackRabbitRepositoryBuilder {
-    static Repository repo = null;
-    static DocumentNodeStore ns = null;
-    public static Repository getRepository() {
-        try {
-            ns = new MongoDocumentNodeStoreBuilder()
-                    .setMongoDB("mongodb://root:password123@localhost:27017", "oak", 0).build();
-            repo = new Jcr(new Oak(ns)).createRepository();
-        } catch (Exception e) {
-            log.error("Exception caught: " + e.getLocalizedMessage());
-            e.printStackTrace();
-        }
-        return repo;
+@Component
+public class AppListener implements CommandLineRunner, DisposableBean {
+
+    @Override
+    public void run(String... args) throws Exception {
+        log.info("应用启动成功，预加载相关数据");
     }
 
-    public static void dispose() {
-        try {
-            ns.dispose();
-        } catch (Exception e) {
-            log.error("Exception caught: " + e.getLocalizedMessage());
-            e.printStackTrace();
-        }
+    @Override
+    public void destroy() throws Exception {
+        log.info("应用正在关闭，清理相关数据");
+        JackRabbitRepositoryBuilder.dispose();
     }
 }

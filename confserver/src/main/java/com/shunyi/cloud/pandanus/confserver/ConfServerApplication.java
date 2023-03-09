@@ -21,10 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.shunyi.cloud.pandanus.confsvr;
+package com.shunyi.cloud.pandanus.confserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
  * Config server application
@@ -32,10 +33,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Shunyi Chen
  */
 @SpringBootApplication
-public class ConfsvrApplication {
+@EnableConfigServer
+public class ConfServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConfsvrApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(ConfsvrApplication.class, args);
+    }
 }

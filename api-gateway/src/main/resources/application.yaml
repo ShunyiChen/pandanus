@@ -2,18 +2,14 @@ spring:
   application:
     name: api-gateway
   cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        service-name: ${spring.application.name}
-        prefer-ip-address: true
-        heartbeat:
-          enabled: true
     gateway:
       default-filters:
         - TokenRelay
       routes:
+        - id: admin-api-resource-server
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/**
         - id: jcr-api-resource-server
           uri: http://localhost:9091
           predicates:
@@ -41,7 +37,15 @@ spring:
             client-secret: c37a0929-484d-4635-a41c-f3eb93519bf2
             authorization-grant-type: authorization_code
 #             redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
-
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
 # Enable these to debug the Authorization flow
 logging:
   level:
