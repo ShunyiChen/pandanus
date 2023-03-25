@@ -1,4 +1,4 @@
-# Pandanus(露兜树)
+# Pandanus(露兜树共享文件系统)
 
 > JCR(Java content repository) reference application, powered by Shunyi Chen, based on a simplified spring microservices architecture and Docker containers.
 
