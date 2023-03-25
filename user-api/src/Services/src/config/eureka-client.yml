@@ -1,0 +1,22 @@
+# eureka server host / port
+eureka:
+  heartbeatInterval: 9999
+  registryFetchInterval: 9999
+  fetchRegistry: 'true'
+  servicePath: '/eureka/apps/'
+  fetchMetadata: 'false'
+  host: 'localhost'
+  port: 8070
+# application instance information
+instance:
+  app: 'user-api'
+  hostName: 'localhost'
+  ipAddr: '127.0.0.1'
+  statusPageUrl: 'http://localhost:3000/info'
+  port:
+   '$': 3000,
+   '@enabled': 'true'
+  vipAddress: 'jq.test.something.com'
+  dataCenterInfo:
+   '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'
+   name: 'MyOwn'
