@@ -4,7 +4,7 @@
 
 ---
 
-## 技术栈
+## Technology stack
 
 - [x] Spring Cloud 2022.0.0
 
@@ -25,5 +25,19 @@
 - [x] OAuth2
 
 - [x] Apache Jackrabbit
+
+---
+## Programming language
+
+- [x] Python
+
+- [x] Java
+
+- [x] TypeScript
+
+- [x] C#
+
+- [x] Scala
+
 
 ---
